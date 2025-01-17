@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> {% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Kareem Limca & Milk Soda</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+      .top-border{
+        border-top: 1px solid #000;
+    }
+    .slip{
+        width: 80mm;
+     }
+     .table th, .table td{
+         font-size: 11px;
+     }
+     .slip span{
+         font-size: 12px;
+     }
+     .table thead{
+         border: 2px solid #000;
+     }
+     
+     .fs-12{
+         font-size: 12px;
+     }
+     .slip-footer{
+      border-top: 1px solid #000;
+     }
+     .item_name{
+        text-transform: capitalize;
+     }
+    </style>
+  </head>
+  <body class="">
+
+    <div class="overlay no-print">
+      <div class="menu">
+          <ul class="list-unstyled p-0">
+              <li class="text-end mb-3"><a class="btn btn-close" id="close-btn"></a></li>
+              <li class="text-center mb-3"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+              <li class="text-center mb-3"><a href="{% url 'birthday' %}">Add Birthday</a></li>
+              <li class="text-center mb-3"><a href="{% url 'home' %}">Order</a></li>
+              <li class="text-center mb-3"><a href="{% url 'sales' %}">Item Sales</a></li>
+              <li class="text-center mb-3"><a href="{% url 'search_invoice' %}">Daily Sales</a></li>
+              <li class="text-center mb-3"><a href="{% url 'last_invoice' %}">Last Invoice</a></li>
+              <li class="text-center mb-3"><a href="{% url 'expense' %}">Add Expense</a></li>
+
+          </ul>
+      </div>
+  </div>
+
+  <div class="bars no-print">
+      <a><i class="fa-solid fa-bars-staggered"></i></a>
+  </div>
+
+
+        <section class="print-area">
+            <div class="container d-flex justify-content-center align-items-start">
+              <div class="slip" >
+                <div class="slip-main border p-2 rounded" style="border:1px solid #000; border-radius:5px;" >
+                  <div class="mb-3">
+                    <div class="fw-bold text-center">
+                      <img src="{% static 'images/logo1.png' %}" alt="" class="img-fluid" width="200px">
+                    </div>
+                  </div>  
+                  <div class="mb-1">
+                        <h6 class="fw-bold text-center mb-0">Kareem Limca & Milk Soda</h6>
+                        <p class="text-center fs-12 mt-1  mb-0"> <span class="fw-bold">For Order:</span> +92 3192410531</p>
+                        <p class="text-center fs-12 mt-1 ">London Town Qasimabad</p>
+
+                    </div>
+                    <div class="d-flex justify-content-between px-2" >
+                        <span class=""><span class="fw-bold">Invoice # :</span> {{invoice.id}}</span>
+                        <span class=""><span class="fw-bold">Client :</span></span>
+                        
+                    </div>
+
+                    <div class="d-flex justify-content-between px-2 mt-2">
+                        <span class=""><span class="fw-bold">Date :</span> {{invoice.date}}</span>
+                        <span class=""><span class="fw-bold">Time :</span> {{invoice.time}}</span>    
+                    </div>
+
+                    <table class="table mt-2">
+                        <thead>
+                          <tr>
+                            <th scope="row" colspan="2">S# Item</th>
+                            <th scope="row">Price</th>
+                            <th scope="row"> Qty</th>
+                            <th scope="row">Amount</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          
+                          {% for p in sale_products %}                           
+                          <tr class="top-border">
+                            <th scope="row" colspan="2" class="item_name"> {{ forloop.counter }}. {{p.product.name}}</th>
+                            <td>{{p.product.price}}</td>
+                            <td>{{p.quantity}}</td>
+                            <td>{{p.total_price}}</td>
+                          </tr>
+                          {% endfor %}
+                          {% if invoice.delivery_charges %}
+                          <tr class="slip-footer">
+                            <th scope="row" colspan="2">Delivery ch.</th>
+                            <td></td>
+                            <td class=""></td>
+                            <td class="fw-bold">Rs. {{invoice.delivery_charges}}</td>
+                          </tr>
+                          {% endif %}
+                          <tr class="slip-footer">
+                            <th scope="row" colspan="2">Gross Amount</th>
+                            <td class="fw-bold">{{invoice.total_price}}</td>
+                            <td></td>
+                            <td class="fw-bold">{{invoice.total_price}}</td>
+                          </tr>
+                          {% if invoice.discount %}
+                          <tr class="slip-footer">
+                            <th scope="row" colspan="2">Discount</th>
+                            <td></td>
+                            <td class=""></td>
+                            <td class="fw-bold">{{invoice.discount}}%</td>
+                          </tr>
+                          {% endif %}
+                         
+                          
+                          
+                          {% if invoice.discounted_amount %}
+                            
+                          
+                          <tr class="slip-footer">
+                            <th scope="row" colspan="2">Net Total</th>
+                            <td></td>
+                            <td class=""></td>
+                            <td class="fw-bold">{{invoice.discounted_amount}}</td>
+                          </tr>
+                          {% endif %}
+                  
+                         
+                          
+                         
+                      
+                         
+
+                          <tr class="slip-footer">
+                            <th scope="row" colspan="2">Status</th>
+                            <td></td>
+                            <td class="fw-bold" colspan="2">{{invoice.status}}</td>
+                          </tr>
+
+                          {% if invoice.recieved_cash %}
+                          <tr class="slip-footer">
+                            <th scope="row" colspan="2">Cash Recieved:</th>
+                            <td >{{invoice.recieved_cash}}</td>
+                            <th>Returnable Cash:</th>
+                            <td>{{invoice.returned_cash}}</td>
+                          </tr>
+                        {% endif %}
+
+                        {% if invoice.delivery_man_name %}
+                        <tr class="slip-footer">
+                          <th scope="row" colspan="2">Delivery Man:</th>
+                          <td ></td>
+                          <td></td>
+                          <td>{{invoice.delivery_man_name}}</td>
+                        </tr>
+                      {% endif %}
+
+                        </tbody>
+                      </table>
+
+                      <p class="fs-10 text-center" style="text-align:center;">Developed by Media Production Art</p>
+                     
+                </div>
+            </div>
+              </div>
+             
+        </section>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+
+     <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        var question = confirm('Do you want to print this?');
+        if (question == true){
+          window.print();
+        };
+      });
+
+    </script> 
+</html>

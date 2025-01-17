@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> {% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Kareem Limca & Milk Soda</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .table-custom tr, .table-custom td{
+            padding:3px;
+        }
+        .colored{
+            background-color:#000;
+            border:2px solid #000;
+            padding:4px 14px;
+            color:#fff;
+            transition:all 0.3 ease-in-out;
+        }
+        .colored-active{
+            background-color:red;
+            border:2px solid red;
+            color:#fff;
+            transition:all 0.3 ease-in-out;
+        }
+        .colored:hover{
+            background-color:transparent;
+            color:#000;
+            transition:all 0.3 ease-in-out;
+        }
+        #small_print{
+            display:none;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="overlay">
+        <div class="menu">
+            <ul class="list-unstyled p-0">
+                <li class="text-end mb-3"><a class="btn btn-close" id="close-btn"></a></li>
+                <li class="text-center mb-3"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="text-center mb-3"><a href="{% url 'birthday' %}">Add Birthday</a></li>
+                <li class="text-center mb-3"><a href="{% url 'home' %}">Order</a></li>
+                <li class="text-center mb-3"><a href="{% url 'sales' %}">Item Sales</a></li>
+                <li class="text-center mb-3"><a href="{% url 'search_invoice' %}">Daily Sales</a></li>
+
+                <li class="text-center mb-3"><a href="{% url 'last_invoice' %}">Last Invoice</a></li>
+                <li class="text-center mb-3"><a href="{% url 'expense' %}">Add Expense</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="bars">
+        <a><i class="fa-solid fa-bars-staggered"></i></a>
+    </div>
+
+      <nav class="navbar navbar-light bg-light">
+          <div class="container-fluid">
+                <a href="{% url 'dashboard' %}" class="navbar-brand">
+                  <img src="{% static 'images/logo1.png' %}" alt="" class="img-fluid" width="300px">
+                </a>
+                <form class="d-flex" method="get">
+                    <input class="form-control me-2 rounded-pill" type="search" name="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-dark rounded-pill" type="submit">Search</button>
+                </form>
+        
+        </div>
+      </nav>
+
+      <section class="padding">
+            <div class="container-fluid">
+                <ul class="list-unstyled p-0 d-flex flex-wrap">
+                            
+                    <li class=""><a href="?session_del=True"  class="mx-1 {% if request.session.category is None %}colored-active{% endif %} colored rounded-pill"> All</a></li>
+                    <li class=""><a href="?category_id=1" class=" mx-1 {% if request.session.category == 1 %}colored-active{% endif %} colored rounded-pill">Limca</a></li>
+                    <li class=""><a href="?category_id=4" class=" mx-1 {% if request.session.category == 4 %}colored-active{% endif %} colored rounded-pill">Milk Soda</a></li>
+                    <li class=""><a href="?category_id=19" class=" mx-1 {% if request.session.category == 19 %}colored-active{% endif %} colored rounded-pill">Fries</a></li>
+                    <li class=""><a href="?category_id=8" class=" mx-1 colored {% if request.session.category == 8 %}colored-active{% endif %} rounded-pill">Fresh Limca</a></li>
+                        <li class=""><a href="?category_id=11" class=" mx-1 {% if request.session.category == 11 %}colored-active{% endif %} colored rounded-pill">Pani Puri</a></li>
+                        <li class=""><a href="?category_id=13" class=" mx-1 {% if request.session.category == 13 %}colored-active{% endif %} colored rounded-pill">Coffee / Tea</a></li>
+                        <li class=""><a href="?category_id=23" class=" mx-1 {% if request.session.category == 23 %}colored-active{% endif %} colored rounded-pill">Fast Food</a></li>
+                 
+    
+                </ul>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <h1 class="fw-bold">Large Products </h1>
+                       
+                        <table class="table mt-3 table-custom">
+                            <thead>
+                              <tr class="">
+                                <th scope="col">Image</th>
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Item Price</th>
+                                <th scope="col">Add to Invoice Button</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for product in large_products  %}
+
+                              <tr style="vertical-align: middle;" class="my-0 py-0">
+                                <td scope="row">
+                                {% if product.image %}
+                                    <img src="{{product.image.url}}" alt="" class="img-fluid" width="30px">
+                                {% endif %}
+                                </td>
+                                <td class="fs-144 fw-custom">{{product.name}}</td>
+                                <td class="text-red">Rs. {{product.price}}</td>
+                                <td> <form action="" method="post">
+                                    {% csrf_token %}
+                                        <input type="number" hidden value="{{product.id}}" readonly name="product_id">
+                                        <button type="submit" class="btn btn-outline-dark add-btn fs-144 rounded-pill"><i class="fa-solid fa-circle-plus my-auto "></i> Add to Invoice</button>
+                                    </form></td>
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>
+
+
+                        <h1 class="fw-bold mt-4">Small Products</h1>
+
+                        <table class="table mt-3 table-custom">
+                            <thead>
+                              <tr>
+                                <th scope="col">Image</th>
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Item Price</th>
+                                <th scope="col">Add to Invoice Button</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for product in products  %}
+
+                              <tr style="vertical-align: middle;">
+                                <td scope="row">
+                                {% if product.image %}
+                                    <img src="{{product.image.url}}" alt="" class="img-fluid" width="30px">
+                                {% endif %}
+                                </td>
+                                <td class="fs-144 fw-custom">{{product.name}}</td>
+                                <td class="text-red">Rs. {{product.price}}</td>
+                                <td> <form action="" method="post">
+                                    {% csrf_token %}
+                                        <input type="number" hidden value="{{product.id}}" readonly name="product_id">
+                                        <button type="submit" class="btn btn-outline-dark add-btn fs-144 rounded-pill"><i class="fa-solid fa-circle-plus my-auto fs-144"></i> Add to Invoice</button>
+                                    </form></td>
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                          </table>
+                       
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <div class="basket rounded border p-3 bg-light ">
+                            <h1 class="fw-bold">Basket</h1>
+                            <div class="row fs-144">
+                                <div class="col-4">
+                                    <p class="fw-bold">Item Name</p>
+                                   
+                                </div>
+                                <div class="col-4">
+                                    <p class="fw-bold">Item Qty</p>
+                                 
+                                </div>
+                                <div class="col-2">
+                                    <p class="fw-bold">Item Price</p>
+                                </div>
+                                <div class="col-2">
+                                    <p class="fw-bold">Delete</p>
+                                </div>
+                            </div>
+                            
+                            {% for sale in sale %}
+                                
+                                
+                            <div class="row border-top mt-1 py-2">
+                                <div class="col-4">
+                                
+                                    <p class="fs-144">{{sale.product.name}}</p>
+                                </div>
+                                <div class="col-4">
+                                 
+                                    <div class="btn btn-outline-dark plus-btn rounded-pill d-flex justify-content-around align-items-center py-0 px-1">
+                                        <form action="" method="post" class="d-flex">
+                                            {% csrf_token %}
+                                            <input type="number" value="{{sale.id}}" hidden name="minus" readonly>
+                                            <button type="submit" class=""><i class="fa-solid fa-circle-minus fs-6 my-auto "></i></button>
+                                        </form>
+                                        <span class="mx-3 fs-6 ">{{sale.quantity}}</span>
+                                        <form action="" method="post" class="d-flex">
+                                            {% csrf_token %}
+                                            <input type="number" value="{{sale.id}}" hidden name="plus" readonly>
+                                            <button type="submit" class=""><i class="fa-solid fa-circle-plus fs-6 my-auto "></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                  
+                                    <p class="fw-bold text-success fs-144">Rs. {{sale.total_price}}</p>
+                                    
+                                </div>
+                                <div class="col-1">
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <input type="number" name="del_sale_id" hidden value="{{sale.id}}" readonly>
+                                        <button type="submit" class="fw-bold"><i class="fa-solid fa-trash-can text-red"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        <div class="d-flex justify-content-between fs-144 fw-bold mb-2 border-top border-bottom py-2">
+                            <span>Total Price</span>    
+                            <span>Rs. {{total_price}}</span>    
+                        </div>
+                        
+                        {% if discounted_price %}
+                            
+                        
+                        <div class="d-flex justify-content-between fs-144 fw-bold mb-2 border-top border-bottom py-2">
+                            <span>After Discount Price</span>    
+                            <span>Rs. {{discounted_price}} </span>    
+                        </div>
+                        {% endif %}
+                        <form action="" method="get">
+                        <div class="d-flex justify-content-between fw-bold mb-2 border-bottom py-2 fs-144">
+                            <span>Discount</span>    
+                            
+                            {% if discount %}
+                                <span>{{discount}}% <input type="text" value="del" name="del_discount" hidden readonly ><button type="submit" class=""><i class="fa-solid fa-trash-can text-red"></i></button></span>
+                            {% else %}                                
+                                <span>0%</span>                               
+                            {% endif %}
+                                
+                        </div>
+                        </form>
+                        <div>
+                            <form action="" method="get">
+                                <div class="d-flex align-items-center mb-3">
+                                    <label for="" class="fw-bold fs-144">Add Discount: </label>
+                                    <input type="number" class="form-control mx-2 rounded-pill w-75" value="0" name="discount" placeholder="Discount">
+                                </div>
+                                <button type="submit" class="btn btn-dark rounded-pill w-100 fs-144">
+                                    Add Discount
+                                </button>
+                            </form>
+                           
+
+                            <form id="generate_slip_form" action="" method="post" class="mt-3 fs-144">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status" id="status1" value="Dinning">
+                                            <label class="form-check-label" for="status1" >
+                                              Dinning
+                                            </label>
+                                          </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" value="Take Away" type="radio" name="status" id="status2" checked>
+                                            <label class="form-check-label" for="status2">
+                                              Take Away
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" value="Delivery" type="radio" name="status" id="status3">
+                                            <label class="form-check-label" for="status3">
+                                              Delivery
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="delivery_input mt-3">
+                                    <div class="d-flex justify-content-between">
+                                        <label for="" class="fw-bold">Deliv. Man Name : </label>
+                                        <input type="text" name="delivery_man" class="form-control w-75 rounded-pill" id="delivery_man" placeholder="D.M Name">
+                                    </div>
+                                    <div class="d-flex mt-2 justify-content-between delivery_box" id="delivery_box">
+                                        <label for="" class="fw-bold"> Delivery Charges: </label>
+                                        <input type="number" name="delivery" class="form-control w-75 rounded-pill" id="delivery" placeholder="Delivery Charges">
+                                    </div>
+                                </div>
+                                {% if discount %}
+                                    <input type="number" value="{{discount}}" class="form-control" readonly name="discount" hidden>
+                                {% else %}
+                                    <input type="number" value="0" class="form-control" readonly name="discount" hidden>
+                                {% endif %}
+                                <input type="number" hidden value="{{total_price}}" class="form-control fs-12" readonly name="gross_amount">
+                                <input type="number" hidden value="{{discounted_price}}" class="form-control" readonly name="net_total">
+
+                                <div class="wrap-check-64 d-flex align-items-center mt-3">
+                                    <span class="">Payment Recieved ? :</span>
+                                    <label class="switch" for="payment">
+                                        <input type="checkbox" id="payment" name="paid_or_not" />
+                                        <div class="slider round"></div>
+                                    </label>
+                                  </div>
+                                <div class="mt-3 d-flex">
+                                    <label for="recieved_cash" class="fw-bold ">Recieved Cash:</label>
+                                    <input type="number" id="recieved_cash" class="form-control mx-2 rounded-pill" name="recieved_cash" placeholder="Cash Recieved">
+                                </div>
+                                <button type="button" id="large_print" data-url="{% url 'slip' %}" class="btn btn-dark rounded-pill w-100 mt-3 fs-144">
+                                    Print
+                                </button>
+
+                                <button type="button" id="small_print" data-url="{% url 'small_invoice' %}" class="btn btn-dark rounded-pill w-100 mt-3 fs-144">
+                                    Small Print
+                                </button>
+                            </form>
+
+                            <div class="mt-3 pending_container text-center">
+                                <span class="fw-bold pending_link fs-144">See The Pending Unpaid Invoices</span>
+                                <div class="pending row">
+                                    <div class="text-end mb-3">
+                                        <a class="btn btn-close close_pending"></a>
+                                    </div>
+                                    <div class="col-3">
+                                        <span class="fs-16 fw-bold">
+                                            Invoice Id #
+                                        </span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span class="fs-16 fw-bold">
+                                            Status
+                                        </span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span class="fs-16 fw-bold">
+                                            Delete
+                                        </span>
+                                    </div>
+                                    <div class="col-3">
+                                        <span class="fs-16 fw-bold">
+                                            Print
+                                        </span>
+                                    </div>
+                                
+
+                                
+                                    
+                                    {% if invoices %}
+                                     {% for invoice in invoices %}
+                                    
+                                
+                                    <div class="col-3 mt-2 ">
+                                        <a href="{% url 'edit_invoice' id=invoice.id %}" class="edit paid text-primary">
+                                            {{invoice.id}}
+                                        </a>
+                                        
+                                    </div>
+                                    <div class="col-3 mt-2">
+                                        <form action="" method="post" class="">
+                                                {% csrf_token %}
+                                            <input type="number" name="invoice_id" hidden value="{{invoice.id}}" readonly>
+                                            <button type="submit" class="fs-16 paid" id="Paid_btn">
+                                                Paid
+                                            </button>
+                                        </form>
+                                        </div>
+                                        <div class="col-3 mt-2">
+                                            <form action="" method="post" class="">
+                                                {% csrf_token %}
+                                                <input type="number" name="invoice_del_id" hidden value="{{invoice.id}}" readonly>
+                                                <button type="submit" class="fs-16">
+                                                    <button type="submit" class="" id="delete_btn"><i class="fa-solid fa-trash-can text-red"></i></button>
+                                                </button>
+                                            </form>
+    
+                                        </div>
+    
+                                        <div class="col-3 mt-2">
+                                            <form action="" method="post" class="">
+                                                {% csrf_token %}
+                                                <input type="number" name="invoice_get_id" hidden value="{{invoice.id}}" readonly>
+                                                <button type="submit" class="fs-16">
+                                                    <button type="submit" class="paid">Print</button>
+                                                </button>
+                                            </form>
+    
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                    <div class="p-4">
+                                        <p class="text-center">No Unpaid Invoices</p>
+                                    </div>
+                                    {% endif %}
+                                        
+                                
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="mt-3">
+
+                            <a href="{% url 'last_invoice' %}" class="btn btn-outline-dark fw-bold rounded-pill w-100 fs-144">Get Last Invoice</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </section>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        var form = document.getElementById('generate_slip_form');
+        var large_print = document.getElementById('large_print');
+        var small_print = document.getElementById('small_print');
+
+        large_print.addEventListener('click', function(){
+            var newUrl = this.getAttribute('data-url'); // Get URL from data attribute
+            form.action = newUrl;
+            form.submit();
+        });
+
+        small_print.addEventListener('click', function(){
+            var newUrl = this.getAttribute('data-url'); // Get URL from data attribute
+            form.action = newUrl;
+            form.submit();
+        });
+
+
+
+
+
+
+        var colored = document.querySelectorAll('.colored');
+
+        colored.forEach(function(btn){
+            btn.addEventListener('click', function(e){
+                btn.style.backgroundColor='red';
+                btn.style.border='2px solid red';
+            });
+        });
+
+
+        var Paid_btn = document.getElementById("Paid_btn");
+
+        Paid_btn.addEventListener('click', function(event){
+            var userConfirmed = confirm('Are you sure you want to Pay this Invoice?');
+    
+            // Check if the user clicked "Cancel" (userConfirmed will be false)
+            if (!userConfirmed) {
+                // Prevent the form submission
+                event.preventDefault();
+            }
+        });
+        
+        var delete_btn = document.getElementById("delete_btn");
+
+
+        delete_btn.addEventListener('click', function(event){
+            var userConfirmed = confirm('Are you sure you want to delete this Invoice?');
+    
+            // Check if the user clicked "Cancel" (userConfirmed will be false)
+            if (!userConfirmed) {
+                // Prevent the form submission
+                event.preventDefault();
+            }
+        });
+
+        
+
+        var allbtn = document.querySelectorAll("input[name='status']");
+        var btn = document.getElementById("status3");
+        var btn1 = document.getElementById("status1");
+        var btn2 = document.getElementById("status2");
+        
+        var section =  document.querySelector('.delivery_input');
+        var input =  document.getElementById('delivery');
+        var Paid_checkbox = document.getElementById("payment");
+        var delivery_charges = document.querySelector('.delivery_box');
+        console.log(delivery_charges);
+
+        
+        if(btn2.checked){
+            Paid_checkbox.checked = true;
+        };
+
+       
+        
+        
+        
+        
+
+        allbtn.forEach(function(button){
+            button.addEventListener('change', function(){ 
+                if(btn.checked){
+                    delivery_charges.style.visibility = "visible";
+                }else{
+                    delivery_charges.style.visibility = "hidden";
+                }
+
+                if (btn1.checked || btn.checked) {
+                    Paid_checkbox.checked = false;
+                }
+                else {
+                    Paid_checkbox.checked = true;
+                };
+
+                if(btn1.checked){
+                    small_print.style.display = 'block';
+                }
+                else{
+                    small_print.style.display = 'none';
+                }
+
+                if (btn.checked || btn1.checked) {
+                    section.style.display = "block";  // Show the section if the checkbox is checked
+                }
+                 else {
+                    section.style.display = "none";   // Hide the section if the checkbox is unchecked
+                    input.value = "";   // Hide the section if the checkbox is unchecked
+                };
+        });
+
+        var pending_link = document.querySelector('.pending_link');
+        var pending = document.querySelector('.pending');
+        var close_pending = document.querySelector('.close_pending');
+
+        pending_link.addEventListener('click',function(){
+            pending.style.display="flex";
+        });
+        close_pending.addEventListener('click',function(){
+            pending.style.display="none";
+        });
+
+        });
+    </script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+
+  </body>
+</html>

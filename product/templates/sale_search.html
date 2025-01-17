@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load plus_quantity %}
+    {% load static %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> {% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Kareem Limca & Milk Soda</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+
+    <div class="overlay no-print">
+        <div class="menu">
+            <ul class="list-unstyled p-0">
+                <li class="text-end mb-3"><a class="btn btn-close" id="close-btn"></a></li>
+                <li class="text-center mb-3"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="text-center mb-3"><a href="{% url 'birthday' %}">Add Birthday</a></li>
+                <li class="text-center mb-3"><a href="{% url 'home' %}">Order</a></li>
+                <li class="text-center mb-3"><a href="{% url 'sales' %}">Item Sales</a></li>
+                <li class="text-center mb-3"><a href="{% url 'search_invoice' %}">Daily Sales</a></li>
+                <li class="text-center mb-3"><a href="{% url 'last_invoice' %}">Last Invoice</a></li>
+                <li class="text-center mb-3"><a href="{% url 'expense' %}">Add Expense</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="bars no-print">
+        <a><i class="fa-solid fa-bars-staggered"></i></a>
+    </div>
+
+      <nav class="navbar navbar-light bg-light no-print">
+        <div class="container-fluid">
+          <a href="{% url 'dashboard' %}" class="navbar-brand">
+            <img src="{% static 'images/logo1.png' %}" alt="" class="img-fluid" width="300px">
+          </a>
+         
+      </div>
+      </nav>
+
+      <section class="padding no-print">
+        <div class="container">
+            <form action="" method="GET">
+            <div class="row">
+                <div class="col-md-2">
+                    <select name="year" id="" class="form-select rounded-pill">
+                        <option value="" disabled>Year</option>
+                        <option value="2024" selected>2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <option value="2031">2031</option>
+                        <option value="2032">2032</option>
+                        <option value="2033">2033</option>
+                        <option value="2034">2034</option>
+                        <option value="2035">2035</option>
+                        <option value="2036">2036</option>
+                        <option value="2037">2037</option>
+                        <option value="2038">2038</option>
+                        <option value="2039">2039</option>
+                        <option value="2040">2040</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="month" id="" class="form-select rounded-pill">
+                        <option value="" disabled>Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9" selected>September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="day" id="" class="form-select rounded-pill">
+                        <option value="" selected disabled>Start Date</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                  <select name="end_date" id="" class="form-select rounded-pill">
+                      < <option value="" selected disabled>End Date</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
+                      <option value="24">24</option>
+                      <option value="25">25</option>
+                      <option value="26">26</option>
+                      <option value="27">27</option>
+                      <option value="28">28</option>
+                      <option value="29">29</option>
+                      <option value="30">30</option>
+                      <option value="31">31</option>
+                  </select>
+              </div>
+             
+           
+              <div class="col-md-2">
+                <div>
+                  <input class="form-control me-2 rounded-pill" type="search" name="search" placeholder="Search" aria-label="Search">
+                </div>
+              </div>
+                <div class="col-md-2 ">
+                    <div>
+                        <button type="submit" class="btn btn-dark rounded-pill w-100">
+                            Search
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+        </div>
+      </section>
+     
+
+      <section class="padding print-area">
+        <div class="container">
+          {% with sales|get_sales as data %}
+            
+            {% if day and not end_date %}
+                <h1>All Sales on {{day}}-{{month}}-{{year}} ({{data.length}})</h1>
+            {% elif year and month and not day %}
+                <h1>All Sales on {{month}}-{{year}} ({{data.length}})</h1>
+            {% elif year and month and day and end_date %}
+                <h1>All Sales from {{day}}-{{month}}-{{year}} to {{end_date}}-{{month}}-{{year}} ({{data.length}})</h1>
+            {% else %}
+                <h1>Total Sales ({{data.length}})</h1>
+            {% endif %}
+            <table class="table mt-4 table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">S# of Sales</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Item Quantity</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Total Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    
+                  
+                  {% for sale in data.sales %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }} </th>
+                  {% with sale.product.name|get_data:sales as inner_data %}
+                      <td>{{sale.product.name}}</td>
+                      <td>{{inner_data.quantity}}</td>
+                      <td>{{inner_data.date}}</td>
+
+                      <td>Rs. {{ inner_data.total_price }}</td>
+                    
+                  {% endwith %}
+                    
+                    </tr>
+
+                    {% endfor %}
+                   
+                    {% endwith %}
+                  
+{% comment %}                   
+                    <tr>
+                      <td colspan="4" class="fw-bold">Total Price</td>
+                      <td colspan="1" class="fw-bold">Rs. {{ sale_total }}</td>
+                    </tr>  {% endcomment %}
+               
+                    
+                </tbody>
+              </table>
+            
+        </div>
+      </section>
+
+      
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>

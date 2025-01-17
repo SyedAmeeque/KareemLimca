@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    font-family: 'Poppins', Arial, sans-serif;
+}
+.padding{
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+.cardd{
+    height: 380px;
+    padding: 20px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease-in-out;
+}
+.cardd:hover{
+    transform: scale(1.1);
+    /* background-color: #ddd; */
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+/* .cardd-content{
+    width: 65%;
+}
+.cardd-image{
+    width: 35%;
+} */
+.cardd-image img{
+    border-radius: 10px;
+}
+.form-control:focus{
+    box-shadow: none;
+    border: 1px solid #000;
+    outline: none;
+}
+.text-red{
+    color: rgb(221, 9, 9);
+}
+a i{
+    color: #000;
+    transition: all 0.3s ease-in-out ;
+}
+a{
+    text-decoration: none;
+}
+p:hover a i{
+    color: #fff;
+    transition: all 0.3s ease-in-out ;
+}
+.add-btn:hover i{
+    color: #fff;
+}
+.fs-14{
+    font-size: 11px;
+}
+.fs-10{
+    font-size: 12px;
+    font-weight: bold;
+}
+button{
+    background: none;
+    outline: none;
+    border: none;
+}
+.plus-btn:hover form button i{
+    color: #fff;
+}
+.form-select:focus{
+    box-shadow: none;
+    outline: none;
+    border: 2px solid #000;
+}
+
+.overlay{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.menu{
+    width: 400px;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #fff;
+}
+.menu ul li{
+    font-size: 20px;
+}
+.menu ul li a{
+    color: gray;
+}
+.menu ul li a:hover{
+    color: #000;
+}
+.bars a i{
+    color: #fff;
+    font-size: 25px;
+}
+.bars{
+    padding: 10px;
+    border-radius: 5px;
+    position: fixed;
+    top: 50px;
+    right: 0px;
+    background-color: #000;
+    z-index: 99;
+    transition: all 0.5s ease-in-out;
+}
+.bars:hover{
+    transform: translateX(-20px);
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.box{
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+.box:hover{
+    border:  2px solid red;
+}
+
+@media print {
+    body * {
+        visibility: hidden; /* Hide everything */
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+    }
+    @page {
+        size: 80mm auto; /* Adjust to the width of your thermal paper */
+        margin: 0;
+    }
+    .print-area, .print-area * {
+        visibility: visible; 
+    }
+    .no-print {
+        display: none !important; /* Ensure hidden */
+    }
+    .print-area {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; /* Ensure it fits within the page width */
+    }
+}
+.invoice-link{
+    text-decoration:underline red;
+    color: red;
+    transition: all 0.3s ease-in-out;
+}
+.invoice-link:hover{
+    text-decoration:underline #000;
+    color: #000;
+    transition: all 0.3s ease-in-out;
+}
+.delivery_input{
+    display: flex;
+    align-items: center;
+    display: none;
+}
+.basket{
+    width: 33%;
+    height: 80vh;
+    position: fixed;
+    top: 20%;
+    right: 5px;
+    overflow-y: auto;
+}
+.basket::-webkit-scrollbar{
+    width: 5px;
+    background-color: #ddd;
+    border-radius: 10px;
+    padding: 4px;
+}
+.basket::-webkit-scrollbar-thumb{
+    background-color: #000;
+    width: 4px;
+    padding: 5px;
+    border-radius: 5px;
+}
+.fs-12{
+    font-size: 11px;
+}
+.slip-main{
+    border: 1px solid #000 !important;
+}
+.table>:not(caption)>*>*{
+    border-bottom: 1px solid #000;
+    box-shadow: none;
+}

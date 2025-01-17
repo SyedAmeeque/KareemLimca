@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> {% endcomment %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Kareem Limca & Milk Soda</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <div class="overlay">
+        <div class="menu">
+            <ul class="list-unstyled p-0">
+                <li class="text-end mb-3"><a class="btn btn-close" id="close-btn"></a></li>
+                <li class="text-center mb-3"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="text-center mb-3"><a href="{% url 'birthday' %}">Add Birthday</a></li>
+                <li class="text-center mb-3"><a href="{% url 'home' %}">Order</a></li>
+                <li class="text-center mb-3"><a href="{% url 'sales' %}">Item Sales</a></li>
+                <li class="text-center mb-3"><a href="{% url 'search_invoice' %}">Daily Sales</a></li>
+
+                <li class="text-center mb-3"><a href="{% url 'last_invoice' %}">Last Invoice</a></li>
+                <li class="text-center mb-3"><a href="{% url 'expense' %}">Add Expense</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="bars">
+        <a><i class="fa-solid fa-bars-staggered"></i></a>
+    </div>
+
+      <nav class="navbar navbar-light bg-light">
+          <div class="container-fluid">
+                <a href="{% url 'dashboard' %}" class="navbar-brand">
+                  <img src="{% static 'images/logo1.png' %}" alt="" class="img-fluid" width="300px">
+                </a>
+         
+        </div>
+      </nav>
+
+      <section class="padding">
+        <div class="text-center">
+            <h1 class="fw-bold">Dashboard</h1>
+        </div>
+        <div class="container ">
+
+            <div class="row mt-5">
+              <div class="col-md-6 mb-3">
+                <a href="{% url 'home' %}">
+
+                  <div class="rounded  p-4 box">
+                    <div class="text-center">
+                      <img src="{% static 'images/limca.png' %}" alt="" class="img-fluid" width="100px">
+                    </div>
+                    <h4 class="text-center fw-bold text-red mt-4">Orders</h4>  
+                    
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <a href="{% url 'last_invoice' %}">
+
+                  <div class="rounded  p-4 box">
+                    <div class="text-center">
+                      <img src="{% static 'images/invoice.webp' %}" alt="" class="img-fluid" width="100px">
+                    </div>
+                    <h4 class="text-center fw-bold text-red mt-4">Last Invoice</h4>  
+                    
+                  </div>
+                </a>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <a href="{% url 'sales' %}">
+
+                  <div class="rounded  p-4 box">
+                    <div class="text-center">
+                      <img src="{% static 'images/search.png' %}" alt="" class="img-fluid" width="100px">
+                    </div>
+                    <h4 class="text-center fw-bold text-red mt-4">Search Sales</h4>  
+                    
+                  </div>
+                </a>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <a href="{% url 'search_invoice' %}">
+  
+                    <div class="rounded  p-4 box">
+                      <div class="text-center">
+                        <img src="{% static 'images/invoice_search.png' %}" alt="" class="img-fluid" width="100px">
+                      </div>
+                      <h4 class="text-center fw-bold text-red mt-4">Search Invoices</h4>  
+                      
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <a href="{% url 'expense' %}">
+  
+                    <div class="rounded  p-4 box">
+                      <div class="text-center">
+                        <img src="{% static 'images/expense.jpg' %}" alt="" class="img-fluid" width="250px">
+                      </div>
+                      <h4 class="text-center fw-bold text-red mt-4">Add Expense</h4>  
+                      
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <a href="{% url 'birthday' %}">
+  
+                    <div class="rounded  p-4 box">
+                      <div class="text-center">
+                        <img src="{% static 'images/gift.png' %}" alt="" class="img-fluid" width="190px">
+                      </div>
+                      <h4 class="text-center fw-bold text-red mt-4">Add Birthday</h4>  
+                      
+                    </div>
+                  </a>
+                </div>
+
+            </div>
+        </div>
+      </section>
+
+
+
+
+      
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+
+  </body>
+</html>
