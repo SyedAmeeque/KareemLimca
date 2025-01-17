@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret-key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['*']
-# CSRF_TRUSTED_ORIGINS = ['']
+ALLOWED_HOSTS = ['kareemlimca-production.up.railway.app', 'www.kareemlimca-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://kareemlimca-production.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
